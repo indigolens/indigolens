@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indigo Lens - Your Vision, Perfected by AI & Human Expertise</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons (Speaker icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for 3D effects, glassmorphism, and neuromorphism */
+        :root {
+            --electric-blue: #00BFFF;
+            --neon-purple: #BF00FF;
+            --soft-white: #E0E0E0;
+            --slate-gray: #334155;
+            --dark-bg: #0F0F1A;
+            --card-bg: rgba(25, 25, 40, 0.7); /* Darker, slightly transparent */
+            --glass-blur: 10px;
+            --neuromorphic-shadow-light: rgba(255, 255, 255, 0.05);
+            --neuromorphic-shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--soft-white);
+            overflow-x: hidden; /* Prevent horizontal scroll due to parallax */
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            -webkit-font-smoothing: antialiased; /* Ensure smooth font rendering */
+            -moz-osx-font-smoothing: grayscale;
+            /* Custom Cursor */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(0,191,255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="4"></circle></svg>') 12 12, auto;
+        }
+
+        /* Navbar specific styles */
+        .navbar-container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .navbar-link {
+            padding: 0.5rem 0.75rem; /* Added padding for better touch targets */
+            display: inline-block; /* Ensures padding works */
+        }
+        .navbar-link:hover .text-lift {
+            transform: translateY(-3px);
+            color: var(--electric-blue);
+            text-shadow: 0 0 10px var(--electric-blue); /* Slightly more pronounced glow */
+            cursor: pointer; /* Ensure pointer cursor on hover */
+        }
+        .navbar-link:hover .underline-3d {
+            transform: scaleX(1);
+            background: linear-gradient(90deg, var(--neon-purple), var(--electric-blue));
+        }
+
+        /* Glassmorphism effect */
+        .glassmorphic {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Neuromorphic effect (subtle inner/outer shadow) */
+        .neuromorphic {
+            box-shadow: inset 5px 5px 10px var(--neuromorphic-shadow-dark),
+                        inset -5px -5px 10px var(--neuromorphic-shadow-light),
+                        5px 5px 10px var(--neuromorphic-shadow-dark),
+                        -5px -5px 10px var(--neuromorphic-shadow-light);
+            border-radius: 1rem; /* Apply rounded corners for neuromorphic */
+        }
+
+        /* CTA Button 3D hover effect */
+        .cta-button {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            box-shadow: 0 0 18px var(--neon-purple), 0 0 35px var(--electric-blue); /* Slightly stronger glow */
+            padding: 1rem 2rem; /* Ensure good touch target size */
+            border-radius: 9999px; /* Full rounded for pill shape */
+            cursor: pointer; /* Ensure pointer cursor */
+        }
+        .cta-button:hover {
+            transform: translateY(-7px) translateZ(12px); /* More pronounced lift */
+            box-shadow: 0 0 30px var(--neon-purple), 0 0 60px var(--electric-blue), 0 12px 25px rgba(0,0,0,0.6); /* Stronger glow and shadow */
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
+            z-index: -1;
+            filter: blur(10px); /* Slightly more blur */
+            opacity: 0.8; /* Slightly more opaque */
+            transition: opacity 0.3s ease-out;
+            border-radius: inherit;
+        }
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        /* Card Hover Effects (for all cards) */
+        .card-hover-effect {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            perspective: 1000px; /* Needed for 3D tilt */
+            cursor: default; /* Default cursor for non-clickable cards */
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-12px) rotateX(3deg) rotateY(-3deg) scale(1.03); /* Lift, subtle tilt, slight scale */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 25px var(--electric-blue); /* Stronger shadow and glow */
+        }
+        .card-hover-effect-inner {
+            transform-style: preserve-3d;
+        }
+
+        /* Card Content Expansion on Hover */
+        .card-content-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+            padding-top: 0;
+        }
+        .card-hover-effect:hover .card-content-wrapper {
+            max-height: 500px; /* Increased max-height to accommodate more content */
+            opacity: 1;
+            padding-top: 1rem; /* Space between title and content */
+        }
+        .card-hover-effect .card-title-only {
+            margin-bottom: 0; /* Remove default margin when content is hidden */
+            transition: margin-bottom 0.5s ease-out; /* Smooth transition for margin */
+        }
+        .card-hover-effect:hover .card-title-only {
+            margin-bottom: 1rem; /* Add margin back when content is visible */
+        }
+
+
+        /* Floating effect for elements */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-element {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Parallax background for Our Process section */
+        .parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1506703719100-a0d3f1edfd08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx1bml2ZXJzZSUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzIwMjY2MjYxfDA&ixlib=rb-4.0.3&q=80&w=1080');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Section Backgrounds - Unique for each section */
+        #services { background-image: url('https://images.unsplash.com/photo-1534796636681-30065b810600?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxNXx8c3BhY2UlMjBncmFkaWVudHxlbnwwfHx8fDE3MjE2NjI2ODV8MA&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #solutions { background-image: url('https://images.unsplash.com/photo-1535182060-d29388b14040?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyMHx8c3BhY2UlMjB1bml2ZXJzZSUyMGdyYWRpZW50fGVufDB8fHx8MTcyMTY2MjY4NXww&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #process { background-image: url('https://images.unsplash.com/photo-1518066000714-cdcd82531a82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw3fHxhaSUyMG1hdHJpeCUyMGJhY2tncmF1bmR8ZW58MHx8fHwxNzIxNjYyNzEwfDA&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #ai-tools { background-image: url('https://images.unsplash.com/photo-1518621736915-f5592882a0b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxMXx8YmxhY2sl20hole%20background%7Cen%7C0%7C0%7C1721662740%7C0&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #works { background-image: url('https://images.unsplash.com/photo-1506703719100-a0d3f1edfd08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx1bml2ZXJzZSUyMGJhY2tncmF1bmR8ZW58MHx8fHwxNzIwMjY2MjYxfDA&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #about { background-image: url('https://images.unsplash.com/photo-1516382103504-20a845946356?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxMHx8c3RhcnNjdXJzYSUyMGJhY2tncmF1bmR8ZW58MHx8fHwxNzIxNjYyNzYxfDA&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #testimonials { background-image: url('https://images.unsplash.com/photo-1506703719100-a0d3f1edfd08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx1bml2ZXJzZSUyMGJhY2tncmF1bmR8ZW58MHx8fHwxNzIwMjY2MjYxfDA&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #pricing { background-image: url('https://images.unsplash.com/photo-1506703719100-a0d3f1edfd08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx1bml2ZXJzZSUyMGJhY2tncmF1bmR8ZW5 R%7C0%7C0%7C1720266261%7C0&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #terms-of-service { background-image: url('https://images.unsplash.com/photo-1506703719100-a0d3f1edfd08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx1bml2ZXJzZSUyMGJhY2tncmF1bmR8ZW5 R%7C0%7C0%7C1720266261%7C0&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+        #privacy-policy { background-image: url('https://images.unsplash.com/photo-1506703719100-a0d3f1edfd08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx1bml2ZXJzZSUyMGJhY2tncmF1bmR8ZW5 R%7C0%7C0%7C1720266261%7C0&ixlib=rb-4.0.3&q=80&w=1080'); background-attachment: fixed; background-size: cover; }
+
+
+        /* Canvas for Hero background particles */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Custom scrollbar for aesthetic */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--neon-purple), var(--electric-blue));
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--neon-purple), var(--electric-blue));
+        }
+
+        /* Custom styles for glowing borders on input fields */
+        .input-glow {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--slate-gray);
+            background-color: rgba(25, 25, 40, 0.5);
+            color: var(--soft-white);
+        }
+        .input-glow:focus {
+            outline: none;
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.3), 0 0 8px var(--electric-blue);
+        }
+
+        /* Social icon hover effect */
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+            padding: 0.5rem; /* Ensure good touch target size */
+            cursor: pointer; /* Ensure pointer cursor */
+        }
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--electric-blue); /* Or specific brand color */
+        }
+
+        /* Testimonial Cube specific styles */
+        #testimonial-cube {
+            transform-style: preserve-3d;
+            transition: transform 0.1s linear; /* Smoother, continuous rotation */
+            perspective: 1000px; /* Needed for 3D tilt */
+            cursor: grab; /* Indicate draggable/interactive */
+        }
+        #testimonial-cube > div {
+            backface-visibility: hidden; /* Hide back face during rotation */
+            display: flex; /* Ensure flexbox for vertical alignment */
+            flex-direction: column;
+            justify-content: space-between; /* Distribute space between content */
+            align-items: center; /* Center items horizontally */
+            padding: 1.5rem; /* Consistent padding */
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+
+        #testimonial-cube > div p.text-lg { /* Target the main quote paragraph */
+            max-height: 140px; /* Adjusted max height to fit within card and allow scrolling */
+            overflow-y: auto; /* Enable vertical scrolling for overflowing text */
+            margin-bottom: 0.5rem; /* Small margin below quote */
+            flex-shrink: 0; /* Prevent it from shrinking too much */
+        }
+        /* Custom scrollbar for testimonial quote if needed */
+        #testimonial-cube > div p.text-lg::-webkit-scrollbar {
+            width: 4px;
+        }
+        #testimonial-cube > div p.text-lg::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+        }
+        #testimonial-cube > div p.text-lg::-webkit-scrollbar-thumb {
+            background: var(--electric-blue);
+            border-radius: 2px;
+        }
+
+        /* Modal styles for Portfolio */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            transform: scale(0.9);
+            animation: scaleIn 0.3s ease-out forwards;
+            position: relative; /* For close button positioning */
+        }
+
+        .modal-close {
+            color: var(--soft-white);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 0.5rem; /* Added padding for better touch targets */
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: var(--electric-blue);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* FAQ Accordion Styles */
+        .accordion-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            cursor: pointer;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--soft-white);
+            transition: color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            color: var(--electric-blue);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 0.5rem;
+            color: var(--slate-300);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 200px; /* Adjust as needed for content length */
+            padding-bottom: 1.25rem;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Mobile Menu Specific Styles */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+        }
+
+        .mobile-menu-overlay.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-overlay .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+        }
+
+        .mobile-menu-overlay ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-menu-overlay ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu-overlay ul li a {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--soft-white);
+            transition: color 0.3s ease;
+            display: block;
+        }
+
+        .mobile-menu-overlay ul li a:hover {
+            color: var(--electric-blue);
+            text-shadow: 0 0 15px var(--electric-blue);
+        }
+
+        /* Works Section Video Specifics */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .video-container:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 15px var(--neon-purple);
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed to contain for all ratios */
+            cursor: pointer;
+        }
+        .mute-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column; /* To stack title and icon */
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease-out;
+            opacity: 0; /* Hidden by default */
+        }
+        .video-container:hover .mute-overlay {
+            opacity: 1; /* Show on hover */
+        }
+        .mute-overlay.hidden {
+            display: none;
+        }
+        /* Mute icon styling */
+        .mute-overlay .audio-control-icon {
+            filter: drop-shadow(0 0 5px rgba(0, 191, 255, 0.7));
+            margin-top: 0.5rem; /* Space between title and icon */
+            font-size: 2.5rem; /* Adjust size for visibility */
+        }
+        .mute-overlay .video-title {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 0 1rem;
+        }
+        .audio-control-button {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1; /* Above video, below main overlay */
+            transition: background 0.3s ease;
+        }
+        .audio-control-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .audio-control-button i {
+            color: var(--electric-blue);
+            font-size: 1.25rem;
+        }
+
+
+        /* Contact Section Gradient Background */
+        #contact {
+            background: linear-gradient(180deg, #0F0F1A 0%, #1a0f2a 50%, #0F0F1A 100%); /* Dark Purple to Blue transition */
+        }
+
+        /* Welcome Popup Specific Styles */
+        .welcome-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1100; /* Higher than other modals */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .welcome-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .welcome-popup-content {
+            background-color: var(--card-bg);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+            padding: 3rem 2rem;
+            max-width: 90%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Springy effect */
+        }
+
+        .welcome-popup-overlay.active .welcome-popup-content {
+            transform: scale(1);
+        }
+
+        .welcome-popup-content h2 {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: var(--electric-blue);
+            text-shadow: 0 0 15px var(--electric-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-popup-content p {
+            font-size: 1.25rem; /* text-xl */
+            color: var(--soft-white);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-soft-white antialiased">
+
+    <!-- Welcome Popup -->
+    <div id="welcome-popup-overlay" class="welcome-popup-overlay">
+        <div class="welcome-popup-content">
+            <h2>Unveil Your Vision.</h2>
+            <p>Step into the future of storytelling where AI precision meets human artistry. Ready to create something extraordinary?</p>
+            <button id="welcome-popup-close-btn" class="cta-button inline-block px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-neon-purple to-electric-blue text-soft-white transition-all duration-300 ease-out">
+                Dive In
+            </button>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-1/2 -translate-x-1/2 z-50 mt-4">
+        <div class="navbar-container rounded-full px-6 py-3 flex items-center justify-between space-x-6 md:space-x-12">
+            <!-- Logo -->
+            <a href="#home" class="text-2xl md:text-3xl font-extrabold text-soft-white relative group overflow-hidden pr-4 md:pr-8 border-r border-slate-700/50">
+                <span class="relative z-10">IndigoLens</span>
+                <!-- Animated background glow -->
+                <span class="absolute inset-0 bg-gradient-to-r from-neon-purple to-electric-blue blur-sm opacity-0 group-hover:opacity-75 transition-opacity duration-300"></span>
+                <span class="absolute inset-0 bg-gradient-to-r from-neon-purple to-electric-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); mix-blend-mode: overlay;"></span>
+                <!-- Subtle 3D tilt on hover for logo text -->
+                <span class="absolute inset-0 flex items-center justify-center transform translateZ(0px) group-hover:translateZ(5px) transition-transform duration-300 ease-out">
+                    <span class="text-2xl md:text-3xl font-extrabold text-soft-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">IndigoLens</span>
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-4 md:space-x-8">
+                <li>
+                    <a href="#services" class="navbar-link text-lg font-medium relative overflow-hidden group">
+                        <span class="text-lift transition-transform duration-300 ease-out">Services</span>
+                        <span class="underline-3d absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-neon-purple to-electric-blue transform scaleX(0) transition-transform duration-300 ease-out origin-left"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#solutions" class="navbar-link text-lg font-medium relative overflow-hidden group">
+                        <span class="text-lift transition-transform duration-300 ease-out">Solutions</span>
+                        <span class="underline-3d absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-neon-purple to-electric-blue transform scaleX(0) transition-transform duration-300 ease-out origin-left"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#works" class="navbar-link text-lg font-medium relative overflow-hidden group">
+                        <span class="text-lift transition-transform duration-300 ease-out">Works</span>
+                        <span class="underline-3d absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-neon-purple to-electric-blue transform scaleX(0) transition-transform duration-300 ease-out origin-left"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#pricing" class="navbar-link text-lg font-medium relative overflow-hidden group">
+                        <span class="text-lift transition-transform duration-300 ease-out">Pricing</span>
+                        <span class="underline-3d absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-neon-purple to-electric-blue transform scaleX(0) transition-transform duration-300 ease-out origin-left"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="navbar-link text-lg font-medium relative overflow-hidden group">
+                        <span class="text-lift transition-transform duration-300 ease-out">Contact</span>
+                        <span class="underline-3d absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-neon-purple to-electric-blue transform scaleX(0) transition-transform duration-300 ease-out origin-left"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Hamburger Menu for Mobile -->
+            <div class="md:hidden flex items-center pl-4">
+                <button id="hamburger-btn" class="text-soft-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <button class="modal-close" id="mobile-menu-close">&times;</button>
+        <ul>
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#services" class="mobile-nav-link">Services</a></li>
+            <li><a href="#solutions" class="mobile-nav-link">Solutions</a></li>
+            <li><a href="#works" class="mobile-nav-link">Works</a></li>
+            <li><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        <div class="relative z-10 floating-element">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4 text-soft-white drop-shadow-lg">
+                Your Vision, Perfected by AI & Human Expertise
+            </h1>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#contact" class="cta-button inline-block px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-neon-purple to-electric-blue text-soft-white transition-all duration-300 ease-out">
+                    Get a Free Quote
+                </a>
+                <a href="#services" class="inline-block px-8 py-4 text-lg font-semibold rounded-full border-2 border-electric-blue text-electric-blue hover:bg-electric-blue hover:text-white transition-colors duration-300">
+                    Explore Our Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">Our AI-Powered Video Editing Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1: Script To Short Video -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <div class="card-hover-effect-inner">
+                        <svg class="w-16 h-16 mb-6 text-electric-blue" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                        <h3 class="2xl font-semibold card-title-only text-soft-white">Script To Short Video</h3>
+                        <div class="card-content-wrapper">
+                            <p class="text-slate-300">Transform your written concepts and scripts into dynamic, professional short videos. Our AI drafts scenes, while human editors refine every detail for maximum impact.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2: Clips To Engaging Shorts -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <div class="card-hover-effect-inner">
+                        <svg class="w-16 h-16 mb-6 text-neon-purple" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.0rg/2000/svg">
+                            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                        </svg>
+                        <h3 class="2xl font-semibold card-title-only text-soft-white">Clips To Engaging Shorts</h3>
+                        <div class="card-content-wrapper">
+                            <p class="text-slate-300">Send us your raw footage, and our hybrid team will craft it into polished, captivating short videos. AI handles the heavy lifting, human creativity adds the finesse.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3: Long Video To Viral Shorts -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <div class="card-hover-effect-inner">
+                        <svg class="w-16 h-16 mb-6 text-electric-blue" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 3H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 16H9v-2h6v2zm3-4H6V8h12v7z"/>
+                        </svg>
+                        <h3 class="2xl font-semibold card-title-only text-soft-white">Long Video To Viral Shorts</h3>
+                        <div class="card-content-wrapper">
+                            <p class="text-slate-300">Maximize your content's reach. We expertly transform your lengthy videos into concise, engaging, and highly shareable short-form content for all platforms.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">Our Solutions</h2>
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+                IndigoLens offers tailored video solutions for businesses and creators of all sizes. From viral marketing campaigns to engaging educational content, our human-AI synergy provides scalable and high-quality results.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 neuromorphic">
+                    <h3 class="text-2xl font-semibold card-title-only text-electric-blue">Marketing & Advertising</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-300">Create compelling video ads and promotional content that captures attention and drives conversions across all digital platforms.</p>
+                    </div>
+                </div>
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 neuromorphic">
+                    <h3 class="text-2xl font-semibold card-title-only text-neon-purple">Education & Training</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-300">Transform complex information into digestible and engaging short video lessons, tutorials, and training modules.</p>
+                    </div>
+                </div>
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 neuromorphic">
+                    <h3 class="text-2xl font-semibold card-title-only text-electric-blue">Social Media Content</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-300">Dominate your social feeds with a constant fluid stream of fresh, high-quality short videos optimized for virality and audience engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Human-AI Hybrid Process Section -->
+    <section id="process" class="relative py-20 md:py-32 px-4 parallax-bg min-h-[80vh] flex items-center justify-center">
+        <div class="absolute inset-0 bg-dark-bg opacity-70"></div> <!-- Overlay for readability -->
+        <div class="container mx-auto relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-soft-white">Our AI-Powered Editing Process</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Process Step 1 -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-6 neuromorphic floating-element" style="animation-delay: 0s;">
+                    <div class="text-5xl font-bold text-electric-blue mb-4">1</div>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">Upload Your Raw Files</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-400 text-sm">Share your raw footage, script, or just your idea. Our team will understand your goals and project requirements.</p>
+                    </div>
+                </div>
+                <!-- Process Step 2 -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-6 neuromorphic floating-element" style="animation-delay: 0.2s;">
+                    <div class="text-5xl font-bold text-neon-purple mb-4">2</div>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">AI Does the Heavy Lifting</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-400 text-sm">Our AI generates an initial draft, identifying key moments, cuts, effects, and captions, significantly speeding up the process.</p>
+                    </div>
+                </div>
+                <!-- Process Step 3 -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-6 neuromorphic floating-element" style="animation-delay: 0.4s;">
+                    <div class="text-5xl font-bold text-electric-blue mb-4">3</div>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">Human Touch Adds Emotion & Design</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-400 text-sm">Our expert human editors meticulously refine, add creative touches, emotional depth, and ensure perfection.</p>
+                    </div>
+                </div>
+                <!-- Process Step 4 (Added for clarity in process) -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-6 neuromorphic floating-element md:col-span-1 md:col-start-2" style="animation-delay: 0.6s;">
+                    <div class="text-5xl font-bold text-neon-purple mb-4">4</div>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">Get Polished Story-Driven Content Within Days</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-400 text-sm">Receive your high-quality, polished short video. We offer revisions to ensure your complete satisfaction before final delivery.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto mt-12 text-slate-300">
+                ✨ This hybrid workflow saves time while delivering emotional depth.
+            </p>
+        </div>
+    </section>
+
+    <!-- AI Tools & Features Section -->
+    <section id="ai-tools" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">AI Tools & Features We Use</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 neuromorphic">
+                    <h3 class="text-2xl font-semibold card-title-only text-electric-blue">Video Editing Tools</h3>
+                    <div class="card-content-wrapper">
+                        <ul class="list-disc list-inside text-left text-slate-300 space-y-2">
+                            <li>Runway</li>
+                            <li>CapCut AI</li>
+                            <li>Pika</li>
+                            <li>Sora</li>
+                            <li>Descript</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 neuromorphic">
+                    <h3 class="text-2xl font-semibold card-title-only text-neon-purple">AI Content Generation</h3>
+                    <div class="card-content-wrapper">
+                        <ul class="list-disc list-inside text-left text-slate-300 space-y-2">
+                            <li>Sora/Veo (faceless reels, story content)</li>
+                            <li>Midjourney (creative visuals)</li>
+                            <li>DALLE (creative visuals)</li>
+                            <li>AnimateDiff (animations)</li>
+                            <li>Deforum (animations)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 neuromorphic">
+                    <h3 class="text-2xl font-semibold card-title-only text-electric-blue">Automation & Enhancement</h3>
+                    <div class="card-content-wrapper">
+                        <ul class="list-disc list-inside text-left text-slate-300 space-y-2">
+                            <li>Auto-cut long videos</li>
+                            <li>Auto-captioning</li>
+                            <li>AI-generated B-roll</li>
+                            <li>Style transfer (anime, cinematic)</li>
+                            <li>Custom thumbnails</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">Our Work</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Video 1 -->
+                <div class="video-container card-hover-effect">
+                    <!-- IMPORTANT: Replace src with your direct video file URL (e.g., .mp4, .webm). Instagram page links will NOT play here. -->
+                    <video src="SnapInsta.to_AQMzhT3GidS53EbnezLiizK09HStdWR-PM6XdXeEG7vJuAprCkghEwlerarANvu9RpPO--gKxC6v_K-HZl-8sjdYbzJwqR4fHo-Acbc.mp4" autoplay loop muted playsinline class="rounded-lg"></video>
+                    <div class="mute-overlay" onclick="toggleMute(this.previousElementSibling)">
+                        <span class="video-title">AI Reels + Small edits</span>
+                        <i class="fas fa-volume-mute audio-control-icon"></i> <!-- Font Awesome Mute Icon -->
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-container card-hover-effect">
+                    <!-- IMPORTANT: Replace src with your direct video file URL (e.g., .mp4, .webm). Instagram page links will NOT play here. -->
+                    <video src="SnapInsta.to_AQOB4KZVR4h6i4qdpTQejeu3RdTdhPQy5R_hotrfWf1nmlqx6Amy5m29p8RR59XE_jhZvbPreAddBscAMxWbtVgRQX9tWBX-TtaXg_8.mp4" autoplay loop muted playsinline class="rounded-lg"></video>
+                    <div class="mute-overlay" onclick="toggleMute(this.previousElementSibling)">
+                        <span class="video-title">Profile Edit</span>
+                        <i class="fas fa-volume-mute audio-control-icon"></i> <!-- Font Awesome Mute Icon -->
+                    </div>
+                </div>
+                <!-- Video 3 -->
+                <div class="video-container card-hover-effect">
+                    <!-- IMPORTANT: Replace src with your direct video file URL (e.g., .mp4, .webm). Instagram page links will NOT play here. -->
+                    <video src="/Generated File June 13, 2025 - 5_28PM (1).mp4" autoplay loop muted playsinline class="rounded-lg"></video>
+                    <div class="mute-overlay" onclick="toggleMute(this.previousElementSibling)">
+                        <span class="video-title">CGI Ads</span>
+                        <i class="fas fa-volume-mute audio-control-icon"></i> <!-- Font Awesome Mute Icon -->
+                    </div>
+                </div>
+                <!-- Add more video containers as needed -->
+                 <div class="video-container card-hover-effect">
+                    <!-- IMPORTANT: Replace src with your direct video file URL (e.g., .mp4, .webm). Instagram page links will NOT play here. -->
+                    <video src="/SnapInsta.to_AQO6ksiHps94A0qN_Ovt8Fv-6BoNJ-gvdNjLO8o3rHw3fgYqR4GIbAeCkJY0-MgNbdoyPkahL_s35ckt6X3VxlcrWW4ZND9tHkSG9Io.mp4" autoplay loop muted playsinline class="rounded-lg"></video>
+                    <div class="mute-overlay" onclick="toggleMute(this.previousElementSibling)">
+                        <span class="video-title">Anime Edit</span>
+                        <i class="fas fa-volume-mute audio-control-icon"></i> <!-- Font Awesome Mute Icon -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+     <!-- About Us / Team Section -->
+     <!-- About Us / Team Section -->
+    <section id="about" class="relative py-20 md:py-32 px-4 parallax-bg min-h-[80vh] flex items-center justify-center">
+        <div class="absolute inset-0 bg-dark-bg opacity-70"></div> <!-- Overlay for readability -->
+        <div class="container mx-auto relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-soft-white">About IndigoLens & Our Team</h2>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto mb-12 text-slate-300 floating-element">
+                IndigoLens is a pioneering creative studio dedicated to revolutionizing video content creation. We are a passionate team of artists, technologists, and storytellers committed to blending the efficiency of AI with the irreplaceable touch of human creativity. Our mission is to empower businesses and individuals to tell their stories with unparalleled speed, quality, and impact.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-6 neuromorphic floating-element" style="animation-delay: 0s;">
+                    <img src="/IMG20250524171736.jpg" alt="Mayank Kumar" class="rounded-full w-24 h-24 mx-auto mb-4 border-2 border-electric-blue">
+                    <h3 class="text-xl font-semibold text-soft-white">Mayank Kumar</h3>
+                    <p class="text-electric-blue mb-2">Founder & Creative Director</p>
+                    <p class="text-slate-400 text-sm">Visionary leading our creative endeavors.</p>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-6 neuromorphic floating-element" style="animation-delay: 0.2s;">
+                    <img src="/IMG-20250527-WA0084.jpg" alt="Vicky Kumar" class="rounded-full w-24 h-24 mx-auto mb-4 border-2 border-neon-purple">
+                    <h3 class="text-xl font-semibold text-soft-white">Vicky Kumar</h3>
+                    <p class="text-neon-purple mb-2">Lead AI Strategist</p>
+                    <p class="text-slate-400 text-sm">Architect of our AI-powered content solutions.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Client Feedback -->
+    <section id="testimonials" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">What Our Clients Say</h2>
+            <div class="relative w-full max-w-2xl mx-auto h-64 flex items-center justify-center perspective-[1000px]">
+                <div id="testimonial-cube" class="relative w-64 h-64 transform-style-3d preserve-3d transition-transform duration-700 ease-in-out">
+                    <!-- Face 1 -->
+                    <div class="absolute w-full h-full glassmorphic rounded-2xl p-6 flex flex-col justify-center items-center" style="transform: rotateY(0deg) translateZ(128px);">
+                        <p class="text-lg italic mb-4">"IndigoLens has revolutionized our content creation workflow. The blend of AI efficiency and human creativity is unparalleled, saving us hours and delivering stunning short videos every time!"</p>
+                        <p class="font-semibold text-electric-blue">- Jane Doe</p>
+                        <p class="text-sm text-slate-400">Marketing Director, Creative Solutions</p>
+                        <div class="flex text-yellow-400 mt-2">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <!-- Face 2 -->
+                    <div class="absolute w-full h-full glassmorphic rounded-2xl p-6 flex flex-col justify-center items-center" style="transform: rotateY(90deg) translateZ(128px);">
+                        <p class="text-lg italic mb-4">"The ability to turn our long-form content into engaging short videos with IndigoLens is a game-changer for our social media strategy. Their human-AI approach ensures quality and speed."</p>
+                        <p class="font-semibold text-neon-purple">- Mark Smith</p>
+                        <p class="text-sm text-slate-400">Head of Content, Digital Innovators</p>
+                        <div class="flex text-yellow-400 mt-2">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <!-- Face 3 -->
+                    <div class="absolute w-full h-full glassmorphic rounded-2xl p-6 flex flex-col justify-center items-center" style="transform: rotateY(180deg) translateZ(128px);">
+                        <p class="text-lg italic mb-4">"As a small business, we needed high-quality video content without the high costs. IndigoLens delivered beyond our expectations, creating viral shorts that significantly boosted our engagement."</p>
+                        <p class="font-semibold text-electric-blue">- Alice Lee</p>
+                        <p class="text-sm text-slate-400">Founder, E-commerce Startup</p>
+                        <div class="flex text-yellow-400 mt-2">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <!-- Face 4 (Duplicate for continuous rotation, can add more unique testimonials) -->
+                    <div class="absolute w-full h-full glassmorphic rounded-2xl p-6 flex flex-col justify-center items-center" style="transform: rotateY(270deg) translateZ(128px);">
+                        <p class="text-lg italic mb-4">"IndigoLens's efficiency and creative flair are unmatched. Our videos have never looked better or performed stronger!"</p>
+                        <p class="font-semibold text-neon-purple">- Alex P., Marketing Lead</p>
+                        <p class="text-sm text-slate-400">Marketing Lead, Innovate Corp</p>
+                        <div class="flex text-yellow-400 mt-2">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">Flexible Pricing for Every Project</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Basic Plan -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <h3 class="text-3xl font-bold card-title-only text-electric-blue">Basic Plan</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-5xl font-extrabold text-soft-white mb-6">₹699 / $9<span class="text-xl text-slate-400">/short video</span></p>
+                        <ul class="text-slate-300 text-left space-y-3 mb-8">
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Delivery: 3–4 Days</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Editing Type: Clean Cuts, Auto-Captions, Music</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Services: Auto-cut, Subtitles, Background Music</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Revisions: 1 Round</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Post Support: 3 Days Support via Drive</li>
+                        </ul>
+                    </div>
+                    <button onclick="window.location.href='#contact'" class="cta-button inline-block px-8 py-3 text-lg font-semibold rounded-full bg-gradient-to-r from-neon-purple to-electric-blue text-soft-white hover:scale-105 transition-transform duration-300">
+                        Start Now
+                    </button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic border-2 border-electric-blue">
+                    <h3 class="text-3xl font-bold card-title-only text-neon-purple">Premium Plan</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-5xl font-extrabold text-soft-white mb-6">₹1,999 / $25<span class="text-xl text-slate-400">/short video</span></p>
+                        <ul class="text-slate-300 text-left space-y-3 mb-8">
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-electric-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Delivery: Fast Delivery (24–48 hrs)</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-electric-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Editing Type: Cinematic Reels, Storytelling, Color Grading, AI Enhancements</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-electric-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Services: Story shaping, Cinematic polish, AI overlays, B-Roll</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-electric-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Revisions: 3 Rounds</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-electric-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Post Support: 15 Days Premium Support (Drive + Direct Contact)</li>
+                        </ul>
+                    </div>
+                    <button onclick="window.location.href='#contact'" class="cta-button inline-block px-8 py-3 text-lg font-semibold rounded-full bg-gradient-to-r from-neon-purple to-electric-blue text-soft-white hover:scale-105 transition-transform duration-300">
+                        Start Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose IndigoLens Section -->
+    <section id="why-choose-us" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-soft-white">Why Choose IndigoLens?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1: Human-AI Synergy -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <svg class="w-16 h-16 mb-6 text-electric-blue" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        <path d="M12 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">Human-AI Synergy</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-300">We combine the speed and precision of AI with the creative insight and nuanced understanding of human editors for truly exceptional results.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Short Video Specialization -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <svg class="w-16 h-16 mb-6 text-neon-purple" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 3H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 16H9v-2h6v2zm3-4H6V8h12v7z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">Short Video Specialization</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-300">We are experts in crafting compelling short-form video content optimized for maximum engagement across all social media platforms.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Guaranteed Quality & Speed -->
+                <div class="card-hover-effect glassmorphic rounded-2xl p-8 flex flex-col items-center text-center neuromorphic">
+                    <svg class="w-16 h-16 mb-6 text-electric-blue" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold card-title-only text-soft-white">Guaranteed Quality & Speed</h3>
+                    <div class="card-content-wrapper">
+                        <p class="text-slate-300">Our streamlined process ensures rapid turnaround times without compromising on the cinematic quality and professional polish of your final video.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-32 px-4">
+        <div class="container mx-auto text-center max-w-3xl">
+             <h2 id="contact-form" class="text-4xl md:text-5xl font-bold mt-24 mb-16 text-soft-white">Get in Touch</h2>
+    <form id="contact-form-element" class="glassmorphic rounded-2xl p-8 md:p-12 neuromorphic">
+        <div class="mb-6 text-left">
+            <label for="name" class="block text-slate-300 text-sm font-medium mb-2">Your Name</label>
+            <input type="text" id="name" name="name" class="input-glow w-full px-4 py-3 rounded-lg focus:ring-electric-blue focus:border-electric-blue" placeholder="John Doe" required>
+        </div>
+        <div class="mb-6 text-left">
+            <label for="email" class="block text-slate-300 text-sm font-medium mb-2">Your Email</label>
+            <input type="email" id="email" name="email" class="input-glow w-full px-4 py-3 rounded-lg focus:ring-electric-blue focus:border-electric-blue" placeholder="you@example.com" required>
+        </div>
+        <div class="mb-6 text-left">
+            <label for="message" class="block text-slate-300 text-sm font-medium mb-2">Your Message</label>
+            <textarea id="message" name="message" rows="5" class="input-glow w-full px-4 py-3 rounded-lg focus:ring-electric-blue focus:border-electric-blue" placeholder="Tell us about your project..." required></textarea>
+        </div>
+        <button type="submit" id="submit-button" class="cta-button inline-block px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-neon-purple to-electric-blue text-soft-white transition-all duration-300 ease-out">
+            Start Your Project
+        </button>
+        <div id="form-message" class="mt-4 text-center text-lg"></div>
+    </form>
+    
+            <div class="mt-12 text-center">
+                <p class="text-lg text-slate-300 mb-4">Or reach out directly:</p>
+                <p class="text-2xl font-semibold text-electric-blue mb-2">Email: <a href="mailto:team.indigolens@gmail.com" class="hover:underline">team.indigolens@gmail.com</a></p>
+                <div class="flex justify-center space-x-6 mt-6">
+                    <!-- Social Icons with specific links -->
+                    <a href="https://www.linkedin.com/company/indigolens" target="_blank" rel="noopener noreferrer" class="social-icon text-4xl text-soft-white hover:text-electric-blue transition-colors duration-300" title="LinkedIn">
+                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/indigolens_official" target="_blank" rel="noopener noreferrer" class="social-icon text-4xl text-soft-white hover:text-neon-purple transition-colors duration-300" title="Instagram">
+                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.204-.012 3.584-.07 4.85-.148 3.252-1.691 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.583-.012-4.85-.07c-3.251-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.012-3.584.07-4.85.148-3.252 1.691-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 2.163c-3.204 0-3.584.012-4.85.07-2.72.13-3.657 1.079-3.787 3.787-.057 1.266-.069 1.644-.069 4.85s.012 3.583.07 4.85c.13 2.72 1.079 3.657 3.787 3.787 1.266.057 1.644.069 4.85.069s3.583-.012 4.85-.07c2.72-.13 3.657-1.079 3.787-3.787.057-1.266.069-1.644.069-4.85s-.012-3.583-.07-4.85c-.13-2.72-1.079-3.657-3.787-3.787-1.266-.057-1.644-.069-4.85-.069zm0 6a2.663 2.663 0 100 5.325 2.663 2.663 0 000-5.325zm0 2.163a.5.5 0 110 1 .5.5 0 010-1zm5.325-4.588a.5.5 0 100 1 .5.5 0 000-1z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/indigolens" target="_blank" rel="noopener noreferrer" class="social-icon text-4xl text-soft-white hover:text-electric-blue transition-colors duration-300" title="Twitter">
+                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.594 0-6.494 2.901-6.494 6.494 0 .509.058 1.002.162 1.479-5.405-.271-10.211-2.868-13.422-6.815-.556.956-.875 2.07-.875 3.243 0 2.251 1.149 4.249 2.899 5.421-.849-.026-1.646-.26-2.34-.647v.08c0 3.154 2.242 5.786 5.215 6.393-.544.148-1.115.225-1.702.225-.417 0-.82-.041-1.215-.115.823 2.572 3.204 4.45 6.038 4.491-2.235 1.757-5.043 2.811-8.13 2.811-.53 0-1.053-.031-1.566-.092 2.893 1.862 6.305 2.946 9.998 2.946 12.107 0 18.675-10.007 18.675-18.675 0-.285-.007-.568-.02-.85.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="https://forms.gle/vio24pevStgKWAci8" target="_blank" rel="noopener noreferrer" class="social-icon text-4xl text-soft-white hover:text-electric-blue transition-colors duration-300" title="Google Form">
+                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 pt-8 border-t border-slate-700/50">
+            <p class="text-slate-400 text-sm flex items-center justify-center">
+                © 2025 IndigoLens. All rights reserved.
+                <span class="ml-2 text-neon-purple text-xl animate-pulse">
+                    <svg class="w-5 h-5 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM12 6c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Terms of Service Section -->
+    <section id="terms-of-service" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto text-left max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-soft-white text-center">Terms of Service – Indigo Lens</h2>
+            <div class="glassmorphic rounded-2xl p-8 neuromorphic text-slate-300">
+                <p class="mb-2"><strong>Effective Date: July 20, 2025</strong></p>
+                <p class="mb-4"><strong>Last Updated: July 20, 2025</strong></p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">1. Overview</h3>
+                <p class="mb-4">By using the Indigo Lens website, purchasing services, or downloading digital products, you agree to these Terms of Service. Indigo Lens blends human creativity with artificial intelligence to deliver video editing, AI-generated content, and creative digital assets.</p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">2. Services Offered</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>AI-assisted video editing (including tools like Runway, CapCut AI, Sora, etc.)</li>
+                    <li>Human-polished video and design output</li>
+                    <li>AI-generated faceless videos and creative visuals</li>
+                    <li>Custom thumbnails, animations, and motion graphics using AI</li>
+                    <li>Pre-designed templates, AI prompt kits, and downloadable digital products</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">3. Ownership & Usage Rights</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Clients retain full rights to the final delivered content unless otherwise agreed in writing.</li>
+                    <li>Indigo Lens will only showcase completed client work in our public portfolio (website, Instagram, LinkedIn, etc.) if the client grants explicit permission. No public sharing will occur without consent.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">4. AI-Generated Content Disclaimer</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Some visuals or videos may be generated using third-party AI platforms (e.g., Sora, Runway, Midjourney).</li>
+                    <li>While we strive for originality, AI tools may occasionally create outputs with stylistic similarities to public datasets. Indigo Lens is not responsible for any content overlaps that result from AI training data.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">5. Delivery Timeframes</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Delivery depends on the type of service selected:</li>
+                    <ul class="list-circle list-inside ml-4 space-y-1">
+                        <li>Normal Editing: up to 72 hours</li>
+                        <li>Professional/High-End Editing: may require longer timeframes</li>
+                    </ul>
+                    <li>Timeframes will be clearly communicated before the project begins.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">6. Revisions & Refunds</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Most services include 1–2 minor revisions per project.</li>
+                    <li>No refunds on:</li>
+                    <ul class="list-circle list-inside ml-4 space-y-1">
+                        <li>AI-generated content once delivered</li>
+                        <li>Digital downloads (prompt packs, templates, etc.)</li>
+                        <li>Delays caused by incomplete input or major changes in the client brief</li>
+                    </ul>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">7. User Conduct</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Clients must:</li>
+                    <ul class="list-circle list-inside ml-4 space-y-1">
+                        <li>Provide original footage and legal rights to media used</li>
+                        <li>Avoid requesting violent, hateful, explicit, or illegal content generation</li>
+                        <li>Not misuse Indigo Lens services to create deepfakes or misleading media without disclaimers</li>
+                    </ul>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">8. Liability</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Indigo Lens is not liable for:</li>
+                    <ul class="list-circle list-inside ml-4 space-y-1">
+                        <li>Third-party platform decisions (e.g., Instagram, YouTube banning AI content)</li>
+                        <li>AI tool errors or unexpected visual outputs</li>
+                        <li>Consequences from user misuse of AI-generated materials</li>
+                    </ul>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">9. Termination</h3>
+                <p class="mb-4">We reserve the right to refuse or cancel services to anyone violating these terms or using content maliciously.</p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">10. Contact</h3>
+                <p class="mb-2">For questions, email: <a href="mailto:team.indigolens@gmail.com" class="text-electric-blue hover:underline">team.indigolens@gmail.com</a></p>
+                <p>For feedback or project queries, use the form on our website.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Section -->
+    <section id="privacy-policy" class="py-20 md:py-32 px-4 bg-dark-bg">
+        <div class="container mx-auto text-left max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-soft-white text-center">Privacy Policy – Indigo Lens</h2>
+            <div class="glassmorphic rounded-2xl p-8 neuromorphic text-slate-300">
+                <p class="mb-4"><strong>Effective Date: July 20, 2025</strong></p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">1. Information We Collect</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Personal details (name, email) when you fill out forms or make a purchase</li>
+                    <li>Project inputs like raw video files, briefs, references, and materials</li>
+                    <li>Basic platform analytics for improving user experience</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">2. How We Use Your Data</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>To deliver the service(s) you request</li>
+                    <li>To communicate updates, delivery, and post-project follow-up</li>
+                    <li>To store raw materials temporarily during the active project lifecycle</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">3. Data Deletion Policy</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>After completion of your service, we permanently delete your personal data and project materials (raw videos, assets, briefs, etc.)</li>
+                    <li>However, we retain internal service records and project completion logs for internal analytics, billing, and service history purposes</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">4. Data Sharing</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>We do not sell or rent your data. It is only shared:</li>
+                    <ul class="list-circle list-inside ml-4 space-y-1">
+                        <li>With secure tools necessary to deliver services (e.g., cloud storage, email platforms)</li>
+                        <li>When required by law or authorized legal request</li>
+                    </ul>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">5. Third-Party Tools</h3>
+                <p class="mb-4">We use AI tools and cloud-based services (e.g., Runway, Midjourney, Google Drive), which may process client data during production. We encourage users to also review those tools' privacy policies.</p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">6. Security</h3>
+                <p class="mb-4">We use SSL encryption, secure storage, and routine data clean-up protocols. Despite safeguards, no system is 100% hack-proof—please share sensitive content responsibly.</p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">7. Policy Changes</h3>
+                <p class="mb-4">We may update this Privacy Policy at any time. Updates will be reflected by the new "Effective Date" listed above.</p>
+
+                <h3 class="text-2xl font-semibold text-soft-white mb-3 mt-8">8. Contact</h3>
+                <p class="mb-2">For privacy or data concerns, email us at:</p>
+                <p><a href="mailto:team.indigolens@gmail.com" class="text-electric-blue hover:underline">team.indigolens@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // JavaScript for Hero Section particle background with connecting lines
+        window.onload = function() {
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const numParticles = 150; // Increased particle count
+            const connectionDistance = 100; // Max distance for lines between particles
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                particles = []; // Clear and reinitialize particles on resize
+                initParticles();
+            }
+
+            // Particle constructor
+            function Particle(x, y, radius, color, velocity) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = velocity;
+                this.alpha = 1;
+            }
+
+            Particle.prototype.draw = function() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            };
+
+            Particle.prototype.update = function() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Bounce off walls
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.velocity.y = -this.velocity.y;
+                }
+            };
+
+            function initParticles() {
+                for (let i = 0; i < numParticles; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    const radius = Math.random() * 1.5 + 0.5;
+                    const color = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
+                    const velocity = {
+                        x: (Math.random() - 0.5) * 0.8, // Slightly faster movement
+                        y: (Math.random() - 0.5) * 0.8
+                    };
+                    particles.push(new Particle(x, y, radius, color, velocity));
+                }
+            }
+
+            function connectParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i; j < particles.length; j++) {
+                        const p1 = particles[i];
+                        const p2 = particles[j];
+                        const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+
+                        if (distance < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(100, 100, 150, ${1 - (distance / connectionDistance)})`; // Fade lines
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animateParticles() {
+                requestAnimationFrame(animateParticles);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+                connectParticles(); // Draw lines first
+
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+            }
+
+            // Initialize and start animation
+            resizeCanvas(); // Initial resize
+            animateParticles();
+
+            // Event listener for window resize
+            window.addEventListener('resize', resizeCanvas);
+
+            // Micro-interactions and pointer-responsive movements (for Hero headline)
+            const heroHeadline = document.querySelector('#home h1');
+            const heroSubtext = document.querySelector('#home p');
+            const ctaButtons = document.querySelectorAll('#home .cta-button, #home .inline-block.border-2'); // Select both CTA buttons
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const center = {
+                    x: window.innerWidth / 2,
+                    y: window.innerHeight / 2
+                };
+
+                const offsetX = (mouseX - center.x) * 0.02; // Adjust sensitivity
+                const offsetY = (mouseY - center.y) * 0.02;
+
+                // Apply subtle transform to hero elements
+                if (heroHeadline) heroHeadline.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(1.01)`;
+                if (heroSubtext) heroSubtext.style.transform = `translate(${offsetX * 0.5}px, ${offsetY * 0.5}px)`;
+                ctaButtons.forEach(button => {
+                    button.style.transform = `translate(${offsetX * 0.3}px, ${offsetY * 0.3}px)`;
+                });
+            });
+
+            // Testimonial Cube Rotation
+            const testimonialCube = document.getElementById('testimonial-cube');
+            let rotationSpeed = 0.1; // Degrees per frame
+            let animationFrameId;
+
+            function animateTestimonials() {
+                if (testimonialCube) {
+                    let currentRotationY = parseFloat(testimonialCube.style.transform.replace('rotateY(', '').replace('deg)', '')) || 0;
+                    currentRotationY += rotationSpeed;
+                    testimonialCube.style.transform = `rotateY(${currentRotationY}deg)`;
+                    animationFrameId = requestAnimationFrame(animateTestimonials);
+                }
+            }
+
+            if (testimonialCube) {
+                testimonialCube.addEventListener('mouseover', () => {
+                    cancelAnimationFrame(animationFrameId); // Pause on hover
+                    testimonialCube.style.cursor = 'grab'; // Change cursor
+                });
+                testimonialCube.addEventListener('mouseout', () => {
+                    animationFrameId = requestAnimationFrame(animateTestimonials); // Resume on mouse out
+                    testimonialCube.style.cursor = 'default'; // Reset cursor
+                });
+                // Start animation initially
+                animationFrameId = requestAnimationFrame(animateTestimonials);
+            }
+
+            // Works Section Video Mute Toggle
+            function toggleMute(videoElement) {
+                videoElement.muted = !videoElement.muted;
+                const muteOverlay = videoElement.nextElementSibling; // Assuming overlay is next sibling
+                if (muteOverlay) {
+                    // Update the icon based on the muted state
+                    const audioControlIcon = muteOverlay.querySelector('.audio-control-icon');
+                    if (audioControlIcon) {
+                        if (videoElement.muted) {
+                            audioControlIcon.classList.remove('fa-volume-up');
+                            audioControlIcon.classList.add('fa-volume-mute');
+                        } else {
+                            audioControlIcon.classList.remove('fa-volume-mute');
+                            audioControlIcon.classList.add('fa-volume-up');
+                        }
+                    }
+                }
+            }
+            window.toggleMute = toggleMute; // Make it globally accessible for inline onclick
+
+            // FAQ Accordion Logic
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordionItem = header.closest('.accordion-item');
+                    if (accordionItem) { // Null check
+                        accordionItem.classList.toggle('active');
+                    }
+                });
+            });
+
+            // Mobile Menu Toggle
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            if (hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', () => {
+                    if (mobileMenuOverlay) {
+                        mobileMenuOverlay.classList.add('active');
+                    }
+                });
+            }
+
+            if (mobileMenuCloseBtn) {
+                mobileMenuCloseBtn.addEventListener('click', () => {
+                    if (mobileMenuOverlay) {
+                        mobileMenuOverlay.classList.remove('active');
+                    }
+                });
+            }
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenuOverlay) {
+                        mobileMenuOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            
+                   // Add this within your existing window.onload function or after it
+        const contactForm = document.getElementById('contact-form-element');
+        const submitButton = document.getElementById('submit-button');
+        const formMessage = document.getElementById('form-message');
+
+        if (contactForm && submitButton && formMessage) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent default form submission
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                formMessage.textContent = ''; // Clear previous messages
+                formMessage.className = 'mt-4 text-center text-lg'; // Reset classes
+
+                const formData = new FormData(contactForm);
+                const payload = {};
+                for (const [key, value] of formData.entries()) {
+                    payload[key] = value;
+                }
+
+                try {
+                    const response = await fetch('/.netlify/functions/submitForm', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        formMessage.textContent = result.message;
+                        formMessage.classList.add('text-green-400'); // Tailwind green for success
+                        contactForm.reset(); // Clear the form
+                    } else {
+                        formMessage.textContent = result.message || 'An unknown error occurred.';
+                        formMessage.classList.add('text-red-400'); // Tailwind red for error
+                    }
+                } catch (error) {
+                    console.error('Network or unexpected error:', error);
+                    formMessage.textContent = 'Network error. Please try again.';
+                    formMessage.classList.add('text-red-400');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Start Your Project';
+                }
+            });
+        }
+        
+            // Section Scroll Animations (3D Swipe Effect)
+            const sections = document.querySelectorAll('section');
+            const observerOptions = {
+                root: null, // viewport as the root
+                rootMargin: '0px',
+                threshold: 0.1 // 10% of the section must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                        entry.target.style.opacity = '1';
+                    } else {
+                        // Optional: reset transform when out of view to re-trigger on scroll back
+                        entry.target.style.transform = 'translateY(50px) scale(0.95)';
+                        entry.target.style.opacity = '0';
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                // Apply initial hidden state
+                section.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+                section.style.transform = 'translateY(50px) scale(0.95)';
+                section.style.opacity = '0';
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>
